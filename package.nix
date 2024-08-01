@@ -20,14 +20,13 @@ rec {
     owner = "vinceliuice";
     repo = pname;
     rev = version;
-    hash = "sha256-6VPuqvXqtoygBnZ7u/aRqV0jCvjjWLSqyMIXkkF7YOc=";
+    hash = "sha256-Ae/rE+5g3N8u721nOI7blbMnjkkN0ztt7HbtoHkGa0w=";
   };
 
   nativeBuildInputs = [ gtk3 jdupes ];
 
   buildInputs = [ hicolor-icon-theme ];
 
-  # Unnecessary & slow fixup's
   dontPatchELF = true;
   dontRewriteSymlinks = true;
   dontDropIconThemeCache = true;

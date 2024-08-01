@@ -2,16 +2,19 @@
   description = "Fluent icon theme for linux desktops";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, flake-utils, ... }:
-    flake-utils.lib.eachSystem [ "x86_64-linux" "aarch64-linux" ] (system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in {
-        packages.default = pkgs.callPackage ./package.nix {};
-      }
-    );
+  outputs = { self, nixpkgs, ... }:
+  let
+    supportedSystems = [ "x86_64-linux" "aarch64-linux" ];
+    forAllSystems = f: nixpkgs.lib.genAttrs supportedSystems (system: f system);
+    nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+  in {
+    packages = forAllSystems (system: {
+      default = nixpkgsFor.${system}.callPackage ./package.nix {};
+    });
+
+    defaultPackage = forAllSystems (system: self.packages.${system}.default);
+  };
 }
