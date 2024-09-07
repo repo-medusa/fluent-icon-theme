@@ -20,7 +20,7 @@ rec {
     owner = "vinceliuice";
     repo = pname;
     rev = version;
-    hash = "sha256-Ae/rE+5g3N8u721nOI7blbMnjkkN0ztt7HbtoHkGa0w=";
+    hash = "sha256-10jmsaV67nhHdUh50CjCyZUfVL27ty18RgNNfB7p/F4=";
   };
 
   nativeBuildInputs = [ gtk3 jdupes ];
